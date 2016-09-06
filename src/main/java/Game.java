@@ -10,11 +10,13 @@ public class Game {
 
         System.out.println("ADMINISTRATOR SETUP");
         System.out.println("=====================");
-        System.out.print("Name of the items in the jar: ");
+        System.out.print("What type of item? ");
         item = in.nextLine();
-        System.out.print("Maximum number of " + item +
-                                    " in the jar: ");
-        capacity = in.nextInt();
+      
+        while (capacity < 1) {
+          System.out.print("What is the maximum amount of " + item +"? ");
+          capacity = in.nextInt();
+        }
 
         Jar jar = new Jar(item, capacity);
 
@@ -30,15 +32,16 @@ public class Game {
         int guess = 0;
         int guesses = 0;
         while (guess != jar.getInJar()) {
-            System.out.print("Guess: ");
+            System.out.print("How many " + item + "? (Between 1 and " + capacity + ") ");
             guess = in.nextInt();
             guesses++;
+            if (guess == jar.getInJar()) break;
             if (guess < jar.getInJar()) System.out.println("Too low");
             if (guess > jar.getInJar()) System.out.println("Too high");
             System.out.println();
         }
         System.out.println("Congratulations - you guessed that there are " + 
-            jar.getInJar() + " " + jar.getItem() + " in the jar! It took you " 
-            + guesses + " guess(es) to get it right.");
+            jar.getInJar() + " " + jar.getItem() + " in the jar! You got it in " 
+            + guesses + " attempts.");
     }
 }
