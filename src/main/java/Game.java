@@ -36,6 +36,10 @@ public class Game {
             guess = in.nextInt();
             guesses++;
             if (guess == jar.getInJar()) break;
+            if (guess > jar.getCapacity()) {
+                System.out.println("Your guess must be less than " + capacity);
+                guesses--;
+            }
             if (guess < jar.getInJar()) System.out.println("Too low");
             if (guess > jar.getInJar()) System.out.println("Too high");
             System.out.println();
