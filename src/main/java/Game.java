@@ -1,16 +1,20 @@
+import java.util.Scanner;
+
 public class Game {
     public static void main(String[] args) {
 
-        Console console = System.console();
+        Scanner in = new Scanner(System.in);
 
         String item = "";
         int capacity = 0;
 
         System.out.println("ADMINISTRATOR SETUP");
         System.out.println("=====================");
-        item = console.readLine("Name of the items in the jar: ");
-        capacity = console.readLine("Maximum number of " + item +
+        System.out.print("Name of the items in the jar: ");
+        item = in.nextLine();
+        System.out.print("Maximum number of " + item +
                                     " in the jar: ");
+        capacity = in.nextInt();
 
         Jar jar = new Jar(item, capacity);
 
@@ -18,18 +22,20 @@ public class Game {
         System.out.println("=======================");
         System.out.println("Your goal is to guess how many " + item +
                            " are in the jar. Your guess should be between" +
-                           " 1 and 5.");
+                           " 1 and " + capacity + ".");
         System.out.println();
 
-        String isReady = console.readLine("Ready? (press enter to start" +
-                                          " guessing)");
+        jar.setInJar();
 
-        playGame(jar);
-
-    }
-
-    private void playGame(Jar jar) {
-        int guess = console.readInt("Guess: ");
-        
+        int guess = 0;
+        int guesses = 0;
+        while (guess != jar.getInJar()) {
+            System.out.print("Guess: ");
+            guess = in.nextInt();
+            guesses++;
+        }
+        System.out.println("Congratulations - you guessed that there are " + 
+            jar.getInJar() + " " + jar.getItem() + " in the jar! It took you " 
+            + guesses + " guess(es) to get it right.");
     }
 }
