@@ -33,6 +33,9 @@ public class Game {
             System.out.print("Guess: ");
             guess = in.nextInt();
             guesses++;
+            if (guess < jar.getInJar()) System.out.println("Too low");
+            if (guess > jar.getInJar()) System.out.println("Too high");
+            System.out.println();
         }
         System.out.println("Congratulations - you guessed that there are " + 
             jar.getInJar() + " " + jar.getItem() + " in the jar! It took you " 
