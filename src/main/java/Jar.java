@@ -48,7 +48,7 @@ public class Jar {
         return mGuesses;
     }
 
-    public int compareGuess(int guess) {
+    public int compareTo(int guess) {
         mGuesses++;
         if (guess == mInJar) return 0;
         else if (guess > mInJar) return 1;

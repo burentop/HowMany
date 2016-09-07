@@ -52,7 +52,7 @@ public class Prompter {
                 System.out.println("Your guess must be greater than zero.");
             }
             // Check if equal, high or low
-            switch(mJar.compareGuess(mGuess)) {
+            switch(mJar.compareTo(mGuess)) {
                 case 0:
                     guessed = true;
                     break;
