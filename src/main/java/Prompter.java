@@ -29,23 +29,36 @@ public class Prompter {
 
         System.out.println("Congratulations - you guessed that there are " +
             mJar.getInJar() + " " + mItem + " in the jar! You got" +
-            " it in " + mGuesses + " attempts.");
+            " it in " + mJar.getGuesses() + " attempts.");
     }
 
     public void guessLoop() {
-        while (mGuess != mJar.getInJar()) {
+        boolean guessed = false;
+        while (!guessed) {
             System.out.print("How many " + mJar.getItem() + "? (Between 1 and "
                  + mJar.getCapacity() + ") ");
             mGuess = in.nextInt();
-            mGuesses++;
-            if (mGuess == mJar.getInJar()) break;
-            if (mGuess > mJar.getCapacity()) {
+            
+            if (mGuess > mCapacity) {
                 System.out.println("Your guess must be less than " +
-                     mJar.getCapacity());
-                mGuesses--;
+                     mCapacity);
+            } else if (mGuess < 1) {
+                System.out.println("Your guess must be greater than zero.");
             }
-            if (mGuess < mJar.getInJar()) System.out.println("Too low");
-            if (mGuess > mJar.getInJar()) System.out.println("Too high");
+            switch(mJar.compareGuess(mGuess)) {
+                case 0:
+                    guessed = true;
+                    break;
+                case 1:
+                    System.out.println("Too high");
+                    break;
+                case -1:
+                    System.out.println("Too low");
+                    break;
+                default:
+                    break;
+
+            }
             System.out.println();
         }
     }
@@ -56,7 +69,7 @@ public class Prompter {
         System.out.print("What type of item? ");
         mItem = in.nextLine();
       
-        while (mCapacity < 1) {
+        while (mCapacity < 2) {
           System.out.print("What is the maximum amount of " + mItem +"? ");
           mCapacity = in.nextInt();
         }

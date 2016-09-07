@@ -7,10 +7,12 @@ public class Jar {
     private String mItem;
     private int mCapacity;
     private int mInJar;
+    private int mGuesses;
 
     public Jar(String item, int capacity) {
         mItem = item;
         mCapacity = capacity;
+        mGuesses = 0;
     }
 
     public String getItem() {
@@ -37,5 +39,14 @@ public class Jar {
         mCapacity = capacity;
     }
 
+    public int getGuesses() {
+        return mGuesses;
+    }
 
+    public int compareGuess(int guess) {
+        mGuesses++;
+        if (guess == mInJar) return 0;
+        else if (guess > mInJar) return 1;
+        else return -1;
+    }
 }
