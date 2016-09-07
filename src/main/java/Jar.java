@@ -1,5 +1,10 @@
 import java.util.Random;
 
+/*
+ * This class creates the jar and checks guesses
+ */
+
+
 public class Jar {
 
     Random random = new Random();

@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/*
+ * This class administers all of the I/O for the game.
+ */
+
 public class Prompter {
 
     Scanner in = new Scanner(System.in);
@@ -33,18 +37,21 @@ public class Prompter {
     }
 
     public void guessLoop() {
+        // Indicates when the amount is guessed
         boolean guessed = false;
         while (!guessed) {
             System.out.print("How many " + mJar.getItem() + "? (Between 1 and "
                  + mJar.getCapacity() + ") ");
             mGuess = in.nextInt();
             
+            // Ensure guess is within range
             if (mGuess > mCapacity) {
                 System.out.println("Your guess must be less than " +
                      mCapacity);
             } else if (mGuess < 1) {
                 System.out.println("Your guess must be greater than zero.");
             }
+            // Check if equal, high or low
             switch(mJar.compareGuess(mGuess)) {
                 case 0:
                     guessed = true;
@@ -74,6 +81,7 @@ public class Prompter {
           mCapacity = in.nextInt();
         }
 
+        // Fill the jar with the provided information.
         mJar.setItem(mItem);
         mJar.setCapacity(mCapacity);
         mJar.setInJar();
