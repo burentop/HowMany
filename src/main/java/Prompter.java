@@ -7,26 +7,28 @@ public class Prompter {
     private Jar mJar;
     private int mGuess;
     private int mGuesses;
+    private String mItem;
+    private int mCapacity;
 
-    public Prompter(Jar jar) {
-        mJar = jar;
+    public Prompter() {
         mGuess = -1;
         mGuesses = 0;
+        mCapacity = 0;
+        mJar = new Jar("", 0);
     }
 
     public void play() {
         System.out.println("PLAYER");
         System.out.println("=======================");
-        System.out.println("Your goal is to guess how many " + mJar.getItem() +
+        System.out.println("Your goal is to guess how many " + mItem +
                            " are in the jar. Your guess should be between" +
-                           " 1 and " + mJar.getCapacity() + ".");
+                           " 1 and " + mCapacity + ".");
         System.out.println();
 
-        mJar.setInJar();
         guessLoop();
 
         System.out.println("Congratulations - you guessed that there are " +
-            mJar.getInJar() + " " + mJar.getItem() + " in the jar! You got" +
+            mJar.getInJar() + " " + mItem + " in the jar! You got" +
             " it in " + mGuesses + " attempts.");
     }
 
@@ -46,5 +48,21 @@ public class Prompter {
             if (mGuess > mJar.getInJar()) System.out.println("Too high");
             System.out.println();
         }
+    }
+
+    public void admin() {
+        System.out.println("ADMINISTRATOR SETUP");
+        System.out.println("=====================");
+        System.out.print("What type of item? ");
+        mItem = in.nextLine();
+      
+        while (mCapacity < 1) {
+          System.out.print("What is the maximum amount of " + mItem +"? ");
+          mCapacity = in.nextInt();
+        }
+
+        mJar.setItem(mItem);
+        mJar.setCapacity(mCapacity);
+        mJar.setInJar();
     }
 }

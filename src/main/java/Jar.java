@@ -29,5 +29,13 @@ public class Jar {
         return mInJar;
     }
 
+    public void setItem(String item) {
+        mItem = item;
+    }
+
+    public void setCapacity(int capacity) {
+        mCapacity = capacity;
+    }
+
 
 }
