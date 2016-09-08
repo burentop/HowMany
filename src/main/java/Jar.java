@@ -18,6 +18,7 @@ public class Jar {
         mItem = item;
         mCapacity = capacity;
         mGuesses = 0;
+        mInJar = random.nextInt(mCapacity) + 1;
     }
 
     public String getItem() {
@@ -28,28 +29,19 @@ public class Jar {
         return mCapacity;
     }
 
-    public void setInJar() {
-        mInJar = random.nextInt(mCapacity) + 1;
-    }
-
     public int getInJar() {
         return mInJar;
-    }
-
-    public void setItem(String item) {
-        mItem = item;
-    }
-
-    public void setCapacity(int capacity) {
-        mCapacity = capacity;
     }
 
     public int getGuesses() {
         return mGuesses;
     }
 
-    public int compareTo(int guess) {
+    public void incGuesses() {
         mGuesses++;
+    }
+
+    public int compareTo(int guess) {
         if (guess == mInJar) return 0;
         else if (guess > mInJar) return 1;
         else return -1;

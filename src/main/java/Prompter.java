@@ -10,29 +10,22 @@ public class Prompter {
 
     private Jar mJar;
     private int mGuess;
-    private int mGuesses;
-    private String mItem;
-    private int mCapacity;
 
     public Prompter() {
-        mGuess = -1;
-        mGuesses = 0;
-        mCapacity = 0;
-        mJar = new Jar("", 0);
     }
 
     public void play() {
         System.out.println("PLAYER");
         System.out.println("=======================");
-        System.out.println("Your goal is to guess how many " + mItem +
+        System.out.println("Your goal is to guess how many " + mJar.getItem() +
                            " are in the jar. Your guess should be between" +
-                           " 1 and " + mCapacity + ".");
+                           " 1 and " + mJar.getCapacity() + ".");
         System.out.println();
 
         guessLoop();
 
         System.out.println("Congratulations - you guessed that there are " +
-            mJar.getInJar() + " " + mItem + " in the jar! You got" +
+            mJar.getInJar() + " " + mJar.getItem() + " in the jar! You got" +
             " it in " + mJar.getGuesses() + " attempts.");
     }
 
@@ -45,12 +38,15 @@ public class Prompter {
             mGuess = in.nextInt();
             
             // Ensure guess is within range
-            if (mGuess > mCapacity) {
+            if (mGuess > mJar.getCapacity()) {
                 System.out.println("Your guess must be less than " +
-                     mCapacity);
+                     mJar.getCapacity());
+                continue;
             } else if (mGuess < 1) {
                 System.out.println("Your guess must be greater than zero.");
+                continue;
             }
+            mJar.incGuesses();
             // Check if equal, high or low
             switch(mJar.compareTo(mGuess)) {
                 case 0:
@@ -64,26 +60,23 @@ public class Prompter {
                     break;
                 default:
                     break;
-
             }
             System.out.println();
         }
     }
 
     public void admin() {
+
         System.out.println("ADMINISTRATOR SETUP");
         System.out.println("=====================");
         System.out.print("What type of item? ");
-        mItem = in.nextLine();
+        String mItem = in.nextLine();
       
-        while (mCapacity < 2) {
+        while (true) {
           System.out.print("What is the maximum amount of " + mItem +"? ");
-          mCapacity = in.nextInt();
+          int mCapacity = in.nextInt();
+          mJar = new Jar(mItem, mCapacity);
+          if (mCapacity > 0) break;
         }
-
-        // Fill the jar with the provided information.
-        mJar.setItem(mItem);
-        mJar.setCapacity(mCapacity);
-        mJar.setInJar();
     }
 }
